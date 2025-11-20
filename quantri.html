@@ -24,7 +24,6 @@
   </style>
 </head>
 <body class="min-h-screen">
-
   <!-- HEADER QUỐC GIA - CỜ VIỆT NAM ĐỎ SAO VÀNG SIÊU ĐẸP -->
   <div class="bg-red-600 text-white py-4 shadow-2xl relative overflow-hidden">
     <div class="absolute inset-0 opacity-10">
@@ -79,7 +78,6 @@
       </div>
       <button onclick="logout()" class="bg-red-700 hover:bg-red-800 px-8 py-3 rounded-lg font-bold transition"> Đăng xuất </button>
     </div>
-
     <div class="max-w-7xl mx-auto p-6 space-y-8">
       <div class="card rounded-2xl p-6 shadow-2xl border border-blue-600 glow">
         <h2 class="text-2xl font-bold mb-4 text-cyan-300 flex items-center gap-3"> BẢN ĐỒ CỨU HỘ REALTIME </h2>
@@ -99,7 +97,6 @@
           </div>
         </div>
       </div>
-
       <div class="grid md:grid-cols-2 gap-8">
         <div class="card rounded-2xl p-6 border-2 border-orange-600 glow">
           <h3 class="text-2xl font-bold text-orange-300 mb-5 flex items-center gap-3"> GỬI CẢNH BÁO KHẨN CẤP </h3>
@@ -141,7 +138,6 @@
             GỬI CẢNH BÁO TOÀN TỈNH NGAY LẬP TỨC
           </button>
         </div>
-
         <div class="card rounded-2xl p-6 border-2 border-blue-600 glow">
           <h3 class="text-xl font-bold text-blue-300 mb-4 flex items-center gap-3"> ĐĂNG KÝ ĐỘI CỨU HỘ </h3>
           <input type="text" id="rescueName" placeholder="Tên đội / Đơn vị (ví dụ: Đội Dân quân Cam Lâm)" class="w-full p-4 mb-3 rounded bg-slate-800 text-white border border-gray-600 focus:border-blue-500 outline-none" />
@@ -149,7 +145,6 @@
           <button onclick="addRescueTeam()" class="w-full bg-blue-600 hover:bg-blue-700 py-4 rounded font-bold text-lg transition"> ĐĂNG KÝ SẴN SÀNG </button>
         </div>
       </div>
-
       <div class="card rounded-2xl p-6 shadow-2xl border border-gray-600">
         <h2 class="text-2xl font-bold mb-6 text-yellow-400 flex items-center gap-3"> DANH SÁCH BÁO CÁO CHI TIẾT </h2>
         <div id="allReports" class="space-y-4"></div>
@@ -200,7 +195,6 @@
 
     function createMarker(report) {
       const isVictim = !report.type || report.type === 'victim';
-      const isWarning = report.type === 'warning';
       const iconClass = isVictim ? 'marker-pin pulse' : report.type === 'rescue' ? 'marker-pin marker-rescue pulse' : 'marker-pin marker-warning pulse';
       const icon = L.divIcon({
         className: "custom-div-icon",
@@ -224,20 +218,18 @@
       L.marker([report.lat, report.lng], { icon }).addTo(markers).bindPopup(popup);
     }
 
-    // ĐÃ THAY ĐỔI CHỖ NÀY: DÙNG /reports.js THAY VÌ /api/reports
+    // ĐÃ SỬA: DÙNG /api/index
     async function loadAllReports() {
       try {
-        const res = await fetch('/reports.js?admin=true&t=' + Date.now());
+        const res = await fetch('/api/index?admin=true&t=' + Date.now());
         const reports = await res.json();
         currentReports = reports;
         markers.clearLayers();
-
         const victims = reports.filter(r => !r.type || r.type === 'victim').length;
         const rescues = reports.filter(r => r.type === 'rescue').length;
         document.getElementById('victimCount').textContent = victims;
         document.getElementById('rescueCount').textContent = rescues;
         document.getElementById('totalReports').textContent = reports.length;
-
         document.getElementById('allReports').innerHTML = reports.map(r => {
           const isVictim = !r.type || r.type === 'victim';
           return `
@@ -256,27 +248,26 @@
             </div>
           `;
         }).join('') || '<p class="text-center text-gray-500 py-10">Chưa có báo cáo nào</p>';
-
         reports.forEach(createMarker);
       } catch (e) { console.error(e); }
     }
 
-    // ĐÃ THAY ĐỔI: DÙNG /reports.js
+    // ĐÃ SỬA: XÓA BÁO CÁO
     async function deleteReport(id) {
       if (confirm('Xác nhận XÓA báo cáo này khỏi hệ thống?')) {
-        await fetch(`/reports.js/${id}`, { method: 'DELETE' });
+        await fetch(`/api/index/${id}`, { method: 'DELETE' });
         loadAllReports();
       }
     }
 
-    // ĐÃ THAY ĐỔI: DÙNG /reports.js
+    // ĐÃ SỬA: GỬI CẢNH BÁO
     async function addWarning() {
       const editor = document.getElementById('warnMsg');
       const htmlContent = editor.innerHTML.trim();
       if (!htmlContent || htmlContent === '<br>' || htmlContent === '<p><br></p>') {
         return alert('Vui lòng nhập nội dung cảnh báo!');
       }
-      await fetch('/reports.js', {
+      await fetch('/api/index', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ lat: 12.24, lng: 109.19, message: htmlContent, type: 'warning' })
@@ -286,12 +277,12 @@
       loadAllReports();
     }
 
-    // ĐÃ THAY ĐỔI: DÙNG /reports.js
+    // ĐÃ SỬA: ĐĂNG KÝ ĐỘI CỨU HỘ
     async function addRescueTeam() {
       const name = document.getElementById('rescueName').value.trim();
       const phone = document.getElementById('rescuePhone').value.trim();
       if (!name || !phone) return alert('Vui lòng nhập đầy đủ thông tin!');
-      await fetch('/reports.js', {
+      await fetch('/api/index', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ lat: 12.24, lng: 109.19, message: `ĐỘI CỨU HỘ: ${name}`, phone, type: 'rescue' })
