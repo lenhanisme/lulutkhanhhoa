@@ -3,103 +3,212 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trang Chủ - Ủng Hộ Vùng Bão Lũ</title>
+  <title>Trang Chủ - Chung Tay Cứu Trợ</title>
+  
+  <!-- Libraries -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
+      font-family: 'Inter', system-ui, sans-serif;
+      background-color: #f8fafc;
+      overflow-x: hidden;
     }
-    nav a {
-      transition: all 0.3s;
+    
+    /* Soft Gradient Background */
+    .bg-gradient-hero {
+      background: linear-gradient(180deg, rgba(219, 234, 254, 0.6) 0%, rgba(248, 250, 252, 0) 100%);
     }
-    nav a:hover {
-      color: #f59e0b;
-      transform: scale(1.05);
+
+    /* Animation Utilities */
+    .fade-in-up { animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(20px); }
+    .delay-100 { animation-delay: 0.1s; }
+    .delay-200 { animation-delay: 0.2s; }
+    
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Glass Effect */
+    .glass-nav {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(226, 232, 240, 0.6);
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col text-slate-800">
 
   <!-- Navigation Bar -->
-  <nav class="w-full bg-white shadow-md sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto px-4 flex justify-between items-center h-16">
-      <div class="text-xl font-bold text-blue-600">🗺 CỨU HỘ THIÊN TAI</div>
-      <div class="flex gap-6">
-        <a href="/trangchu.html" class="text-gray-700 font-semibold hover:text-yellow-500">Trang chủ</a>
-        <a href="/ungho.html" class="text-gray-700 font-semibold hover:text-yellow-500">Ủng Hộ</a>
-        <a href="https://facebook.com/lenhanriel" target="_blank" class="text-gray-700 font-semibold hover:text-yellow-500">Liên hệ</a>
+  <nav class="fixed w-full top-0 z-50 glass-nav transition-all duration-300">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16 sm:h-20">
+        <!-- Logo -->
+        <a href="/trangchu.html" class="flex items-center gap-3 group">
+          <div class="bg-blue-600 w-10 h-10 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/30 group-hover:scale-105 transition-transform">
+            <i class="fas fa-map-location-dot text-white text-lg"></i>
+          </div>
+          <span class="text-xl font-black text-slate-800 tracking-tight">CỨU HỘ <span class="text-blue-600">THIÊN TAI</span></span>
+        </a>
+
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex items-center gap-8">
+          <a href="/trangchu.html" class="text-blue-600 font-bold transition-colors">Trang chủ</a>
+          <a href="/index.html" class="text-slate-600 font-semibold hover:text-blue-600 transition-colors">Bản đồ Cứu hộ</a>
+          <a href="/ungho.html" class="text-slate-600 font-semibold hover:text-blue-600 transition-colors">Ủng hộ</a>
+          <a href="https://facebook.com/lenhanriel" target="_blank" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-5 py-2.5 rounded-full font-bold transition-all text-sm">
+            Liên hệ
+          </a>
+        </div>
+
+        <!-- Mobile Menu Icon (Placeholder) -->
+        <a href="/index.html" class="md:hidden text-blue-600 bg-blue-50 px-3 py-2 rounded-lg font-bold text-sm">
+          Vào Bản Đồ <i class="fas fa-arrow-right ml-1"></i>
+        </a>
       </div>
     </div>
   </nav>
 
   <!-- Hero Section -->
-  <header class="flex flex-col items-center justify-center text-center py-20 px-4 bg-gradient-to-b from-blue-200 to-blue-100">
-    <h1 class="text-4xl sm:text-5xl font-extrabold text-blue-700 mb-4">Chung Tay Giúp Sức Vùng Bão Lũ</h1>
-    <p class="text-lg sm:text-xl text-gray-700 max-w-2xl">
-“Dự án này giúp không ai bị bỏ lại trong thiên tai. Chúng tôi trực quan hóa thông tin cứu trợ, để cộng đồng thấy ngay những nơi cần giúp đỡ và cùng chung tay cứu sống những người gặp khó khăn.”
-</p>
-    <a href="/index.html" class="mt-6 inline-block bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-3 px-8 rounded-full text-lg transition">Xem Bản Đồ</a>
+  <header class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 px-4 bg-gradient-hero overflow-hidden">
+    <!-- Decorative blobs -->
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl pointer-events-none z-[-1]">
+        <div class="absolute top-20 left-10 w-72 h-72 bg-blue-400/20 rounded-full blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-10 right-10 w-96 h-96 bg-cyan-400/20 rounded-full blur-3xl"></div>
+    </div>
+
+    <div class="max-w-4xl mx-auto text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-600 text-xs font-bold uppercase tracking-wide mb-6 fade-in-up">
+        <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
+        Hệ thống cứu trợ khẩn cấp
+      </div>
+      
+      <h1 class="text-4xl sm:text-5xl lg:text-7xl font-black text-slate-900 mb-6 leading-tight fade-in-up delay-100">
+        Chung Tay Giúp Sức <br>
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">Vùng Bão Lũ</span>
+      </h1>
+      
+      <p class="text-lg sm:text-xl text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed fade-in-up delay-200">
+        “Dự án này giúp không ai bị bỏ lại trong thiên tai. Chúng tôi trực quan hóa thông tin cứu trợ, để cộng đồng thấy ngay những nơi cần giúp đỡ.”
+      </p>
+      
+      <div class="flex flex-col sm:flex-row gap-4 justify-center fade-in-up delay-200">
+        <a href="/index.html" class="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-2xl text-lg shadow-xl shadow-blue-600/30 transition-all hover:-translate-y-1">
+          <i class="fas fa-map-marked-alt"></i> Xem Bản Đồ Cứu Hộ
+        </a>
+        <a href="/ungho.html" class="inline-flex items-center justify-center gap-2 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 font-bold py-4 px-8 rounded-2xl text-lg shadow-sm transition-all hover:-translate-y-1">
+          <i class="fas fa-hand-holding-heart text-red-500"></i> Ủng Hộ Ngay
+        </a>
+      </div>
+    </div>
   </header>
 
-  <!-- Features / Sections -->
-  <section class="max-w-6xl mx-auto px-4 py-16 grid grid-cols-1 md:grid-cols-3 gap-8">
-    <div class="bg-white rounded-3xl shadow-lg p-6 flex flex-col items-center text-center">
-      <i class="fas fa-hand-holding-heart text-4xl text-red-500 mb-4"></i>
-      <h2 class="font-bold text-xl mb-2">Hỗ Trợ Người Dân</h2>
-      <p class="text-gray-600">Cung cấp hỗ trợ thiết yếu cho các hộ gia đình chịu ảnh hưởng bão lũ.</p>
-    </div>
-    <div class="bg-white rounded-3xl shadow-lg p-6 flex flex-col items-center text-center">
-      <i class="fas fa-chart-line text-4xl text-green-500 mb-4"></i>
-      <h2 class="font-bold text-xl mb-2">Minh Bạch Tài Chính</h2>
-      <p class="text-gray-600">Mọi đóng góp được quản lý minh bạch, công khai để người ủng hộ yên tâm.</p>
-    </div>
-    <div class="bg-white rounded-3xl shadow-lg p-6 flex flex-col items-center text-center">
-      <i class="fas fa-globe text-4xl text-blue-500 mb-4"></i>
-      <h2 class="font-bold text-xl mb-2">Kết Nối Cộng Đồng</h2>
-      <p class="text-gray-600">Lan tỏa tinh thần đoàn kết, hỗ trợ lẫn nhau trong cộng đồng.</p>
-    </div>
-  </section>
+  <!-- Stats/Features Section -->
+  <section class="max-w-6xl mx-auto px-4 py-16 -mt-10 relative z-10">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+      
+      <!-- Card 1 -->
+      <div class="bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-slate-100 hover:shadow-xl transition-all hover:-translate-y-1 group">
+        <div class="w-14 h-14 bg-red-50 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+          <i class="fas fa-life-ring text-2xl text-red-500"></i>
+        </div>
+        <h2 class="font-bold text-xl text-slate-900 mb-3">Hỗ Trợ Khẩn Cấp</h2>
+        <p class="text-slate-500 leading-relaxed">Kết nối trực tiếp người cần cứu với các đội cứu hộ địa phương thông qua bản đồ thời gian thực.</p>
+      </div>
 
-  <!-- Call to Action Section -->
-  <section class="bg-blue-50 py-16 text-center px-4">
-    <h2 class="text-3xl font-extrabold text-blue-700 mb-4">Bạn có thể giúp gì?</h2>
-    <p class="text-gray-700 mb-6 max-w-xl mx-auto">Mỗi khoản ủng hộ, dù nhỏ, đều góp phần cứu trợ đồng bào vùng lũ. Hãy click nút bên dưới để ủng hộ ngay!</p>
-    <a href="/ungho.html" class="inline-block bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-3 px-8 rounded-full text-lg transition">Ủng Hộ Ngay</a>
+      <!-- Card 2 -->
+      <div class="bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-slate-100 hover:shadow-xl transition-all hover:-translate-y-1 group">
+        <div class="w-14 h-14 bg-green-50 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+          <i class="fas fa-file-invoice-dollar text-2xl text-green-500"></i>
+        </div>
+        <h2 class="font-bold text-xl text-slate-900 mb-3">Minh Bạch Tài Chính</h2>
+        <p class="text-slate-500 leading-relaxed">Mọi khoản đóng góp đều được công khai minh bạch. Theo dõi dòng tiền ủng hộ dễ dàng.</p>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-slate-100 hover:shadow-xl transition-all hover:-translate-y-1 group">
+        <div class="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+          <i class="fas fa-users text-2xl text-blue-500"></i>
+        </div>
+        <h2 class="font-bold text-xl text-slate-900 mb-3">Sức Mạnh Cộng Đồng</h2>
+        <p class="text-slate-500 leading-relaxed">Lan tỏa tinh thần tương thân tương ái. Mỗi chia sẻ của bạn giúp thêm một người được cứu.</p>
+      </div>
+
+    </div>
   </section>
 
   <!-- FAQ Section -->
-  <section class="max-w-6xl mx-auto px-4 py-16">
-    <h2 class="text-3xl font-extrabold text-blue-700 mb-8 text-center">Câu hỏi thường gặp</h2>
+  <section class="max-w-4xl mx-auto px-4 py-16 sm:py-24">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-black text-slate-900 mb-4">Câu hỏi thường gặp</h2>
+      <p class="text-slate-500">Giải đáp thắc mắc về quy trình cứu trợ và ủng hộ</p>
+    </div>
+
     <div class="space-y-4">
-      
-      <div class="bg-white rounded-2xl shadow-lg p-6">
-        <h3 class="font-semibold text-lg text-gray-800 mb-2">1. Tôi có thể đóng góp bằng hình thức nào?</h3>
-        <p class="text-gray-600">Bạn có thể đóng góp trực tiếp bằng chuyển khoản, ví điện tử, hoặc ủng hộ vật phẩm qua các địa điểm tập trung được công bố.</p>
+      <!-- FAQ Item -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <button class="w-full px-6 py-5 text-left flex justify-between items-center font-bold text-slate-800 hover:bg-slate-50 transition-colors group">
+          <span>Tôi có thể đóng góp bằng hình thức nào?</span>
+          <i class="fas fa-chevron-down text-slate-400 group-hover:text-blue-500 transition-colors"></i>
+        </button>
+        <div class="px-6 pb-5 text-slate-600 leading-relaxed text-sm border-t border-slate-100 pt-4">
+          Bạn có thể đóng góp trực tiếp bằng chuyển khoản ngân hàng, ví điện tử (Momo, ZaloPay), hoặc ủng hộ hiện vật (nhu yếu phẩm, thuốc men) qua các điểm tập kết được niêm yết tại trang Ủy ban MTTQ.
+        </div>
       </div>
 
-      <div class="bg-white rounded-2xl shadow-lg p-6">
-        <h3 class="font-semibold text-lg text-gray-800 mb-2">2. Số tiền ủng hộ có được công khai không?</h3>
-        <p class="text-gray-600">Mọi đóng góp đều được quản lý minh bạch, công khai báo cáo định kỳ trên website và các kênh thông tin của MTTQ Việt Nam.</p>
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <button class="w-full px-6 py-5 text-left flex justify-between items-center font-bold text-slate-800 hover:bg-slate-50 transition-colors group">
+          <span>Số tiền ủng hộ có được công khai không?</span>
+          <i class="fas fa-chevron-down text-slate-400 group-hover:text-blue-500 transition-colors"></i>
+        </button>
+        <div class="px-6 pb-5 text-slate-600 leading-relaxed text-sm border-t border-slate-100 pt-4">
+          Chắc chắn. Mọi giao dịch đều được sao kê và cập nhật realtime trên website. Chúng tôi cam kết minh bạch 100% để niềm tin được đặt đúng chỗ.
+        </div>
       </div>
 
-      <div class="bg-white rounded-2xl shadow-lg p-6">
-        <h3 class="font-semibold text-lg text-gray-800 mb-2">3. Tôi có thể theo dõi kết quả cứu trợ không?</h3>
-        <p class="text-gray-600">Có, bạn có thể xem bản đồ cứu trợ trực tuyến và các báo cáo cập nhật tình hình, số lượng hộ được hỗ trợ trên website.</p>
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <button class="w-full px-6 py-5 text-left flex justify-between items-center font-bold text-slate-800 hover:bg-slate-50 transition-colors group">
+          <span>Tôi muốn tham gia đội cứu hộ trực tiếp?</span>
+          <i class="fas fa-chevron-down text-slate-400 group-hover:text-blue-500 transition-colors"></i>
+        </button>
+        <div class="px-6 pb-5 text-slate-600 leading-relaxed text-sm border-t border-slate-100 pt-4">
+          Rất hoan nghênh! Hãy liên hệ hotline hoặc đăng ký qua form "Tình nguyện viên" trên Fanpage. Bạn cần có sức khỏe tốt và kỹ năng bơi lội cơ bản.
+        </div>
       </div>
+    </div>
+  </section>
 
-      <div class="bg-white rounded-2xl shadow-lg p-6">
-        <h3 class="font-semibold text-lg text-gray-800 mb-2">4. Tôi muốn tham gia trực tiếp cứu trợ thì làm sao?</h3>
-        <p class="text-gray-600">Bạn có thể liên hệ qua fanpage hoặc số hotline được công bố để được hướng dẫn tham gia các đội cứu trợ trực tiếp.</p>
-      </div>
-
+  <!-- Call to Action Footer -->
+  <section class="py-20 px-4 bg-slate-900 text-center relative overflow-hidden">
+    <!-- Pattern Overlay -->
+    <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#4b5563 1px, transparent 1px); background-size: 32px 32px;"></div>
+    
+    <div class="relative z-10 max-w-2xl mx-auto">
+      <h2 class="text-3xl sm:text-4xl font-black text-white mb-6">Đừng để ai bị bỏ lại phía sau</h2>
+      <p class="text-slate-400 mb-8 text-lg">Mỗi sự đóng góp của bạn, dù là nhỏ nhất, đều mang lại hy vọng sống cho đồng bào vùng lũ.</p>
+      <a href="/ungho.html" class="inline-block bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-300 hover:to-orange-400 text-slate-900 font-bold py-4 px-10 rounded-full text-lg shadow-lg shadow-orange-500/20 transition-all transform hover:scale-105">
+        Ủng Hộ Ngay Hôm Nay
+      </a>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="bg-white shadow-inner py-6 mt-auto text-center text-gray-500 text-sm">
-    &copy; 2025 Ủng Hộ Vùng Lũ - MTTQ Việt Nam. <br> Website chỉ mang tính thông tin, vui lòng kiểm tra nguồn trước khi đóng góp.
+  <footer class="bg-slate-950 text-slate-500 py-8 text-center text-xs border-t border-slate-800">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
+      <p>&copy; 2025 Cứu Hộ Thiên Tai - Dự án cộng đồng phi lợi nhuận.</p>
+      <div class="flex gap-4">
+        <a href="#" class="hover:text-white transition-colors">Điều khoản</a>
+        <a href="#" class="hover:text-white transition-colors">Bảo mật</a>
+        <a href="https://facebook.com/lenhanriel" target="_blank" class="hover:text-white transition-colors"><i class="fab fa-facebook"></i> Liên hệ</a>
+      </div>
+    </div>
   </footer>
 
 </body>
