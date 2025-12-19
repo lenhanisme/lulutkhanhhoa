@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <title>CỨU HỘ KHẨN CẤP | Khánh Hòa - Ninh Thuận</title>
   
   <!-- Libraries -->
@@ -21,10 +21,16 @@
         margin: 0; 
         background: #f8fafc; 
         height: 100vh; 
+        height: 100dvh; /* Dynamic Viewport Height for Mobile */
         overflow: hidden; 
         font-family: 'Inter', system-ui, sans-serif; 
         -webkit-tap-highlight-color: transparent;
     }
+
+    /* Safe Area Utilities for iPhone Notch/Home Bar */
+    .pt-safe { padding-top: max(12px, env(safe-area-inset-top)); }
+    .pb-safe { padding-bottom: max(12px, env(safe-area-inset-bottom)); }
+    .top-safe-offset { top: max(160px, calc(140px + env(safe-area-inset-top))); }
 
     /* Utilities */
     .no-scrollbar::-webkit-scrollbar { display: none; }
@@ -35,19 +41,14 @@
     
     /* Glassmorphism Effects */
     .glass-panel { 
-        background: rgba(255, 255, 255, 0.92); 
+        background: rgba(255, 255, 255, 0.95); 
         backdrop-filter: blur(12px); 
         -webkit-backdrop-filter: blur(12px); 
-        border: 1px solid rgba(255, 255, 255, 0.5);
-    }
-    .glass-header {
-        background: rgba(255, 255, 255, 0.85);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+        border-top: 1px solid rgba(255, 255, 255, 0.8);
+        box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
     }
 
-    /* Custom Pin CSS - Giữ nguyên logic visual cũ nhưng làm mịn hơn */
+    /* Custom Pin CSS */
     .pin-icon {
         background: linear-gradient(135deg, #ef4444, #dc2626);
         width: 40px; height: 40px;
@@ -92,13 +93,13 @@
     }
   </style>
 </head>
-<body class="relative h-screen w-full overflow-hidden text-slate-800">
+<body class="relative w-full text-slate-800">
 
-  <!-- HEADER -->
-  <header class="absolute top-0 left-0 right-0 z-30 pointer-events-none p-3 lg:p-4">
+  <!-- HEADER (Fixed Z-index high to stay on top) -->
+  <header class="absolute top-0 left-0 right-0 z-[50] pointer-events-none px-3 pt-safe lg:p-4">
     <div class="max-w-xl mx-auto w-full">
         <!-- Top Bar -->
-        <div class="flex items-center justify-between pointer-events-auto bg-white/90 backdrop-blur-md shadow-lg rounded-2xl p-2 pr-3 border border-white/50 mb-3">
+        <div class="flex items-center justify-between pointer-events-auto bg-white/90 backdrop-blur-md shadow-lg rounded-2xl p-2 pr-3 border border-white/50 mb-2">
             <a href="/trangchu.html" class="flex items-center gap-3 group">
                 <div class="bg-red-600 w-10 h-10 rounded-xl flex items-center justify-center shadow-md group-active:scale-95 transition-transform">
                     <i class="fas fa-location-dot text-white text-lg animate-bounce"></i>
@@ -115,7 +116,7 @@
         </div>
 
         <!-- Filter Buttons -->
-        <div class="flex gap-2 overflow-x-auto no-scrollbar pointer-events-auto snap-x py-1">
+        <div class="flex gap-2 overflow-x-auto no-scrollbar pointer-events-auto snap-x py-1 pb-2">
             <button onclick="filterReports('all')" id="btn-all" class="snap-start shrink-0 bg-white/95 backdrop-blur shadow-md px-4 py-2.5 rounded-xl text-xs font-bold text-slate-600 border border-slate-200 active:scale-95 transition-all flex items-center gap-2">
                 <i class="fas fa-layer-group text-slate-400"></i> Tất cả 
                 <span id="allCount" class="bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded-md text-[10px] min-w-[20px]">0</span>
@@ -145,15 +146,16 @@
   </button>
 
   <!-- INFO PANEL (BOTTOM SHEET) -->
-  <div id="infoPanel" class="absolute z-20 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] shadow-[0_-10px_40px_rgba(0,0,0,0.1)] flex flex-col bottom-0 left-0 w-full h-[18vh] rounded-t-[32px] glass-panel lg:top-28 lg:left-4 lg:bottom-4 lg:w-[400px] lg:h-auto lg:rounded-3xl lg:border lg:border-white/60">
+  <!-- Thêm pb-safe để tránh bị Home Bar che -->
+  <div id="infoPanel" class="absolute z-30 transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] flex flex-col bottom-0 left-0 w-full h-[18vh] rounded-t-[32px] glass-panel lg:top-28 lg:left-4 lg:bottom-4 lg:w-[400px] lg:h-auto lg:rounded-3xl lg:border lg:border-white/60">
     
     <!-- Drag Handle (Mobile) -->
-    <div class="w-full flex justify-center pt-3 pb-1 lg:hidden cursor-pointer active:opacity-50" onclick="togglePanel()">
+    <div class="w-full flex justify-center pt-3 pb-1 lg:hidden cursor-pointer active:opacity-50 touch-none" onclick="togglePanel()">
       <div class="w-12 h-1.5 bg-slate-300 rounded-full"></div>
     </div>
 
     <!-- Scroll Content -->
-    <div class="flex-1 overflow-y-auto p-4 space-y-4 no-scrollbar">
+    <div class="flex-1 overflow-y-auto p-4 space-y-4 no-scrollbar pb-safe">
       
       <!-- River Level Card -->
       <div class="bg-blue-50/80 backdrop-blur-sm rounded-2xl p-4 border border-blue-100 shadow-sm">
@@ -188,7 +190,7 @@
     <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity cursor-pointer" onclick="closeReportForm()"></div>
     
     <!-- Modal Content -->
-    <div class="relative bg-white w-full max-w-lg rounded-t-[32px] sm:rounded-3xl p-6 shadow-2xl slide-up overflow-hidden">
+    <div class="relative bg-white w-full max-w-lg rounded-t-[32px] sm:rounded-3xl p-6 pb-safe shadow-2xl slide-up overflow-hidden">
         <!-- Decoration Header -->
         <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-red-500 via-orange-500 to-red-500"></div>
 
@@ -249,7 +251,7 @@
             <span class="group-hover:-translate-y-0.5 transition-transform"><i class="fas fa-paper-plane"></i></span>
             GỬI YÊU CẦU CỨU HỘ
         </button>
-        <p class="text-center text-[10px] text-slate-400 mt-3 font-medium">Thông tin sẽ được gửi ngay lập tức tới đội cứu hộ.</p>
+        <p class="text-center text-[10px] text-slate-400 mt-3 font-medium mb-4 sm:mb-0">Thông tin sẽ được gửi ngay lập tức tới đội cứu hộ.</p>
         <div class="h-4 sm:h-0"></div>
     </div>
   </div>
@@ -271,13 +273,11 @@
     function initMap() {
       map = L.map('map', { zoomControl: false }).setView([lat, lng], 11);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '' }).addTo(map);
-      // Custom zoom control placement if needed, or stick to pinch
-      // L.control.zoom({ position: 'topright' }).addTo(map);
 
       const pinIcon = L.divIcon({
         className: 'pin-icon',
         html: '<div class="pin-inner"><i class="fas fa-house-chimney"></i></div>',
-        iconSize: [40, 40], // Updated size in CSS
+        iconSize: [40, 40],
         iconAnchor: [20, 40],
         popupAnchor: [0, -45]
       });
@@ -351,7 +351,7 @@
         }
     }
 
-    // === DATA FETCHING & RENDERING (UNCHANGED LOGIC, UPDATED HTML TEMPLATE) ===
+    // === DATA FETCHING & RENDERING ===
     async function loadData() {
         // 1. Load Water Levels
         try {
@@ -462,7 +462,6 @@
 
     function filterReports(type) {
         document.querySelectorAll('header button').forEach(b => {
-           // Reset styles is handled by class logic in CSS mostly, but simple opacity works
            if(b.id !== 'btn-' + type) {
                b.classList.add('opacity-60', 'scale-95');
                b.classList.remove('ring-2', 'ring-offset-1');
@@ -474,29 +473,34 @@
         renderReports(type);
     }
 
-    // === UI INTERACTIONS (LOGIC PRESERVED) ===
+    // === UI INTERACTIONS (UPDATED FOR IPHONE/MOBILE) ===
     let isPanelExpanded = false;
     
     function togglePanel() {
         isPanelExpanded = !isPanelExpanded;
         
         if (isPanelExpanded) {
-            // Expand
-            infoPanel.classList.add('h-[85vh]');
+            // Expand Panel
+            // Dùng top-safe-offset thay vì height để tránh bị header che mất nút kéo
+            infoPanel.classList.add('top-safe-offset'); 
             infoPanel.classList.remove('h-[18vh]'); 
             
-            // Push buttons up
-            gpsBtn.style.bottom = '91vh'; 
-            sendReportBtn.style.bottom = '80vh'; 
+            // Push buttons up safely
+            gpsBtn.style.bottom = 'calc(100vh - 150px)'; 
+            sendReportBtn.style.bottom = 'calc(100vh - 220px)';
+            gpsBtn.classList.add('opacity-0', 'pointer-events-none'); // Tạm ẩn GPS để đỡ rối
+            sendReportBtn.classList.add('opacity-0', 'pointer-events-none'); 
 
         } else {
-            // Collapse
-            infoPanel.classList.remove('h-[85vh]');
+            // Collapse Panel
+            infoPanel.classList.remove('top-safe-offset');
             infoPanel.classList.add('h-[18vh]'); 
 
             // Reset buttons
             gpsBtn.style.bottom = '22vh'; 
             sendReportBtn.style.bottom = '12vh'; 
+            gpsBtn.classList.remove('opacity-0', 'pointer-events-none');
+            sendReportBtn.classList.remove('opacity-0', 'pointer-events-none');
         }
     }
 
