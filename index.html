@@ -83,12 +83,8 @@
     .btn-tap:active { transform: scale(0.92) !important; }
     
     /* Input Styling */
-    .form-input {
-        transition: all 0.2s;
-    }
-    .form-input:focus {
-        box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15);
-    }
+    .form-input { transition: all 0.2s; }
+    .form-input:focus { box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15); }
   </style>
 </head>
 <body class="relative w-full text-slate-800">
@@ -110,7 +106,6 @@
                 <button onclick="openHotline()" class="w-10 h-10 rounded-full bg-green-50 text-green-600 flex items-center justify-center hover:bg-green-100 active:scale-90 transition-all border border-green-100 shadow-sm animate-pulse">
                     <i class="fas fa-phone-volume text-lg"></i>
                 </button>
-
                 <a href="https://fb.com/lenhanriel" target="_blank" class="w-10 h-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center hover:bg-blue-100 active:scale-90 transition-all border border-blue-100">
                     <i class="fab fa-facebook-f text-lg"></i>
                 </a>
@@ -152,6 +147,32 @@
 
     <div class="flex-1 overflow-y-auto p-4 space-y-4 no-scrollbar pb-safe">
       
+      <div class="bg-white/90 backdrop-blur-sm rounded-2xl p-4 border border-slate-200 shadow-sm relative overflow-hidden group">
+        <div class="absolute -right-4 -top-4 opacity-10 text-8xl group-hover:scale-110 transition-transform duration-700">
+            <i id="weatherBgIcon" class="fas fa-cloud-sun"></i>
+        </div>
+        <div class="flex justify-between items-start relative z-10">
+            <div>
+                <h3 class="font-bold text-slate-500 text-[10px] uppercase tracking-wider mb-1">Thời tiết hiện tại</h3>
+                <div class="flex items-center gap-3">
+                    <div id="weatherTemp" class="text-4xl font-black text-slate-800">--°</div>
+                    <div class="flex flex-col">
+                        <span id="weatherDesc" class="font-bold text-slate-700 text-sm">Đang tải...</span>
+                        <span class="text-xs text-slate-500 flex items-center gap-1">
+                            <i class="fas fa-wind text-blue-400"></i> <span id="windSpeed">--</span> km/h
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="text-3xl text-orange-500 bg-orange-50 w-12 h-12 rounded-full flex items-center justify-center shadow-sm" id="weatherIconBox">
+                <i id="weatherIcon" class="fas fa-spinner fa-spin"></i>
+            </div>
+        </div>
+        <div id="rainWarning" class="hidden mt-3 bg-red-50 border border-red-100 rounded-lg p-2 flex items-center gap-2 text-xs text-red-600 font-bold">
+            <i class="fas fa-cloud-showers-heavy animate-bounce"></i>
+            <span>Cảnh báo: Đang có mưa, hãy cẩn thận lũ quét!</span>
+        </div>
+      </div>
       <div class="bg-blue-50/80 backdrop-blur-sm rounded-2xl p-4 border border-blue-100 shadow-sm">
         <div class="flex justify-between items-center mb-3">
             <h3 class="font-bold text-blue-900 text-xs uppercase tracking-wider flex items-center gap-2">
@@ -240,7 +261,6 @@
   <div id="hotlineModal" class="hidden fixed inset-0 z-[70] flex items-center justify-center p-4">
     <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity cursor-pointer" onclick="closeHotline()"></div>
     <div class="relative bg-white w-full max-w-md rounded-3xl overflow-hidden shadow-2xl slide-up flex flex-col max-h-[85vh]">
-        
         <div class="bg-green-600 p-4 text-white flex justify-between items-center sticky top-0 z-10">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center backdrop-blur-sm">
@@ -255,9 +275,7 @@
                 <i class="fas fa-times"></i>
             </button>
         </div>
-
         <div class="overflow-y-auto p-4 space-y-3 bg-slate-50 scroll-smooth pb-safe">
-            
             <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
                 <div class="flex gap-3 mb-3">
                     <div class="mt-1"><i class="fas fa-building-shield text-green-600 text-lg"></i></div>
@@ -270,7 +288,6 @@
                     <i class="fas fa-phone animate-pulse"></i> 0259.3822516
                 </a>
             </div>
-
             <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
                 <div class="flex gap-3 mb-3">
                     <div class="mt-1"><i class="fas fa-building-shield text-blue-600 text-lg"></i></div>
@@ -283,7 +300,6 @@
                     <i class="fas fa-phone"></i> 0259.3513377
                 </a>
             </div>
-
             <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
                 <div class="flex gap-3 mb-3">
                     <div class="mt-1"><i class="fas fa-building-shield text-blue-600 text-lg"></i></div>
@@ -296,7 +312,6 @@
                     <i class="fas fa-phone"></i> 0259.3864529
                 </a>
             </div>
-
             <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
                 <div class="flex gap-3 mb-3">
                     <div class="mt-1"><i class="fas fa-building-shield text-blue-600 text-lg"></i></div>
@@ -309,7 +324,6 @@
                     <i class="fas fa-phone"></i> 0259.3854223
                 </a>
             </div>
-
             <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
                 <div class="flex gap-3 mb-3">
                     <div class="mt-1"><i class="fas fa-building-shield text-blue-600 text-lg"></i></div>
@@ -322,7 +336,6 @@
                     <i class="fas fa-phone"></i> 0259.3625014
                 </a>
             </div>
-
             <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
                 <div class="flex gap-3 mb-3">
                     <div class="mt-1"><i class="fas fa-building-shield text-blue-600 text-lg"></i></div>
@@ -335,7 +348,6 @@
                     <i class="fas fa-phone"></i> 0259.3750100
                 </a>
             </div>
-
              <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
                 <div class="flex gap-3 mb-3">
                     <div class="mt-1"><i class="fas fa-building-shield text-blue-600 text-lg"></i></div>
@@ -353,7 +365,6 @@
                     </a>
                 </div>
             </div>
-
             <div class="text-center text-[10px] text-slate-400 py-2">
                 Thông tin được cập nhật từ danh bạ công an tỉnh Ninh Thuận.
             </div>
@@ -369,12 +380,12 @@
     let currentAddress = "Chưa xác định";
     let allReports = [];
     
-    // DOM ELEMENTS (UNCHANGED IDs)
+    // DOM ELEMENTS
     const gpsBtn = document.getElementById('gpsBtn');
     const sendReportBtn = document.getElementById('sendReportBtn');
     const infoPanel = document.getElementById('infoPanel');
 
-    // === MAP & GPS LOGIC (UNCHANGED) ===
+    // === MAP & GPS LOGIC ===
     function initMap() {
       map = L.map('map', { zoomControl: false }).setView([lat, lng], 11);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '' }).addTo(map);
@@ -399,6 +410,7 @@
         const p = marker.getLatLng();
         lat = p.lat.toFixed(6); lng = p.lng.toFixed(6);
         updateAddressInfo(lat, lng);
+        getWeather(lat, lng); // Cập nhật thời tiết khi kéo ghim
       });
 
       getMyLocation();
@@ -428,6 +440,8 @@
                 }
 
                 updateAddressInfo(lat, lng);
+                getWeather(lat, lng); // Lấy thời tiết ngay khi có vị trí
+                
                 if(btnIcon) btnIcon.className = "fas fa-location-crosshairs text-blue-600";
             },
             (err) => {
@@ -456,9 +470,59 @@
         }
     }
 
-    // === DATA FETCHING & RENDERING ===
+    // === WEATHER LOGIC (NEW) ===
+    async function getWeather(latitude, longitude) {
+        try {
+            const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,weather_code,wind_speed_10m,precipitation&timezone=auto`;
+            const res = await fetch(url);
+            const data = await res.json();
+            const current = data.current;
+
+            document.getElementById('weatherTemp').textContent = Math.round(current.temperature_2m) + '°';
+            document.getElementById('windSpeed').textContent = current.wind_speed_10m;
+
+            // Xử lý Mã thời tiết (WMO Code)
+            const code = current.weather_code;
+            let iconClass = 'fa-sun';
+            let textDesc = 'Trời quang';
+            let colorClass = 'text-orange-500 bg-orange-50';
+            let isRain = false;
+
+            if (code >= 1 && code <= 3) { 
+                iconClass = 'fa-cloud-sun'; textDesc = 'Có mây'; 
+                colorClass = 'text-blue-500 bg-blue-50';
+            } else if (code >= 45 && code <= 48) { 
+                iconClass = 'fa-smog'; textDesc = 'Sương mù'; 
+                colorClass = 'text-slate-500 bg-slate-50';
+            } else if (code >= 51 && code <= 67) { 
+                iconClass = 'fa-cloud-rain'; textDesc = 'Mưa nhỏ'; isRain = true;
+                colorClass = 'text-blue-600 bg-blue-100';
+            } else if (code >= 80 && code <= 99) { 
+                iconClass = 'fa-cloud-bolt'; textDesc = 'Mưa dông/Bão'; isRain = true;
+                colorClass = 'text-red-600 bg-red-100 animate-pulse';
+            }
+
+            document.getElementById('weatherDesc').textContent = textDesc;
+            document.getElementById('weatherIcon').className = `fas ${iconClass}`;
+            document.getElementById('weatherBgIcon').className = `fas ${iconClass}`;
+            
+            const box = document.getElementById('weatherIconBox');
+            box.className = `text-3xl w-12 h-12 rounded-full flex items-center justify-center shadow-sm transition-colors ${colorClass}`;
+
+            if (isRain || current.precipitation > 0) {
+                document.getElementById('rainWarning').classList.remove('hidden');
+            } else {
+                document.getElementById('rainWarning').classList.add('hidden');
+            }
+        } catch (e) { console.error("Lỗi thời tiết", e); }
+    }
+
+    // === DATA FETCHING ===
     async function loadData() {
-        // 1. Load Water Levels
+        // Load Weather (Using global lat, lng)
+        if(lat && lng) getWeather(lat, lng);
+
+        // Load Water Levels
         try {
             const wRes = await fetch('/static/waterdata.json?t=' + Date.now());
             const wData = await wRes.json();
@@ -494,7 +558,7 @@
             document.getElementById('updateTime').textContent = wData.UpdateTime || '';
         } catch(e) { console.log("Water Err", e); }
 
-        // 2. Load Reports
+        // Load Reports
         try {
             const rRes = await fetch('/api/reports');
             allReports = await rRes.json();
@@ -578,30 +642,21 @@
         renderReports(type);
     }
 
-    // === UI INTERACTIONS (UPDATED FOR IPHONE/MOBILE) ===
+    // === UI INTERACTIONS ===
     let isPanelExpanded = false;
     
     function togglePanel() {
         isPanelExpanded = !isPanelExpanded;
-        
         if (isPanelExpanded) {
-            // Expand Panel
-            // Dùng top-safe-offset thay vì height để tránh bị header che mất nút kéo
             infoPanel.classList.add('top-safe-offset'); 
             infoPanel.classList.remove('h-[18vh]'); 
-            
-            // Push buttons up safely
             gpsBtn.style.bottom = 'calc(100vh - 150px)'; 
             sendReportBtn.style.bottom = 'calc(100vh - 220px)';
-            gpsBtn.classList.add('opacity-0', 'pointer-events-none'); // Tạm ẩn GPS để đỡ rối
+            gpsBtn.classList.add('opacity-0', 'pointer-events-none');
             sendReportBtn.classList.add('opacity-0', 'pointer-events-none'); 
-
         } else {
-            // Collapse Panel
             infoPanel.classList.remove('top-safe-offset');
             infoPanel.classList.add('h-[18vh]'); 
-
-            // Reset buttons
             gpsBtn.style.bottom = '22vh'; 
             sendReportBtn.style.bottom = '12vh'; 
             gpsBtn.classList.remove('opacity-0', 'pointer-events-none');
@@ -611,8 +666,6 @@
 
     function openReportForm() { document.getElementById('reportForm').classList.remove('hidden'); }
     function closeReportForm() { document.getElementById('reportForm').classList.add('hidden'); }
-
-    // === HOTLINE FUNCTIONS (NEW) ===
     function openHotline() { document.getElementById('hotlineModal').classList.remove('hidden'); }
     function closeHotline() { document.getElementById('hotlineModal').classList.add('hidden'); }
 
@@ -624,7 +677,6 @@
         if (!msg || !phone) return alert('Vui lòng nhập SĐT và nội dung!');
 
         const fullMsg = `${msg} \n(Tại: ${currentAddress})`;
-        
         const btn = document.getElementById('sendBtn');
         const originalContent = btn.innerHTML;
         btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang gửi...'; btn.disabled = true;
@@ -648,7 +700,7 @@
     window.onload = () => {
         initMap();
         loadData();
-        setInterval(loadData, 5000);
+        setInterval(loadData, 10000); // 10s load dữ liệu 1 lần
     };
   </script>
 </body>
